@@ -10,22 +10,19 @@ Recipe Analytics Data Pipeline
 --------------------
 1\. Project Overview
 --------------------
+This project implements an end-to-end Data Engineering pipeline designed to ingest, transform, and analyze recipe data. The system leverages **Firebase Firestore** as a flexible, transactional NoSQL source and **Google BigQuery** as a high-performance analytical data warehouse.
 
-This project implements an end-to-end Data Engineering pipeline designed to ingest, transform, and analyze recipe data. The system uses **Firebase Firestore** as a transactional NoSQL source and **Google BigQuery** as the analytical data warehouse.
+The core objective is to create a robust system capable of analyzing user engagement metrics (views, likes) and recipe complexity factors (ingredients, steps) to derive actionable business insights. By bridging the gap between operational application data and analytical reporting, this pipeline enables data-driven decision-making for content strategy and platform optimization.
 
-The goal is to analyze user engagement (views, likes) and recipe complexity (ingredients, steps) to derive business insights.
+**Key Features:**
 
-### System Architecture
+-   **Source:** Firebase Firestore (Document-Oriented NoSQL).
 
-The pipeline follows a standard **ELT (Extract, Load, Transform)** pattern:
+-   **Extraction & Transformation:** A serverless Python ETL pipeline that normalizes semi-structured JSON data into a relational schema.
 
-1.  **Source:** Firestore (Document Store) - *Transactional Data*
+-   **Storage:** Google Cloud Storage serves as a Data Lake for raw backups, while BigQuery acts as the Data Warehouse for structured analytics.
 
-2.  **Extraction:** Python ETL Pipeline - *Normalization & Cleaning*
-
-3.  **Staging:** Google Cloud Storage (Bucket: `saurav_recipe_backup`) - *Data Lake*
-
-4.  **Warehouse:** BigQuery (Dataset: `recipe_analytics`) - *Analytics*
+-   **Automation:** The pipeline is event-driven, automatically updating analytical tables whenever new data is uploaded.
 
 __ETL Flow:__
 ![alt text](pictures/etl_flow.png)
@@ -65,23 +62,28 @@ ER Diagram:
 ---
 3\. Setup & Prerequisites
 -------------------------
+To successfully deploy and run this pipeline, the following prerequisites must be met.
 
-### System Requirements
+**System Requirements:**
 
--   **Python:** 3.8+
+-   **Python:** Version 3.8 or higher.
 
--   **Google Cloud Platform:** Project `fir-f8d56` with BigQuery & Storage enabled.
+-   **Google Cloud Platform (GCP):** An active GCP project ID with billing enabled.
 
--   **Firebase:** Admin SDK Credentials (`serviceaccount.json`).
+    -   **APIs Enabled:** Cloud Functions API, Cloud Build API, BigQuery API, Cloud Storage API, Artifact Registry API.
 
-### Dependencies
+-   **Firebase:** A Firebase project linked to the GCP project with Firestore enabled.
 
-Install the required Python libraries:
+-   **Service Account:** A service account JSON key (`serviceaccount.json`) with permissions for Firestore Admin, Storage Admin, and BigQuery Admin (required for local execution).
+
+**Dependencies:** The project relies on several Python libraries. Install them using the provided `requirements.txt` file:
+
+Bash
 
 ```
-pip install firebase-admin faker google-cloud-bigquery google-cloud-storage pandas
-
+pip install firebase-admin faker google-cloud-bigquery google-cloud-storage pandas fun
 ```
+
 ---
 4\. Implementation Guide (How to Run)
 -------------------------------------
