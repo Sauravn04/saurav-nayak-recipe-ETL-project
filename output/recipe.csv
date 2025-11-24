@@ -1,0 +1,21 @@
+recipe_id,title,author_id,prep_time_minutes,difficulty,created_at
+rec_001_saurav_chicken_gravy,Chicken Gravy for 2 People,user_saurav_001,35,Medium,2025-11-20 12:35:20.676026+00:00
+rec_002_synthetic,Delicious Curry,user_416,57,Medium,2025-04-09 12:35:30.174809+00:00
+rec_003_synthetic,Creamy Soup,user_794,26,Easy,2025-05-01 12:35:30.174809+00:00
+rec_004_synthetic,Vegan Stir Fry,user_588,59,Hard,2025-07-14 12:35:30.174809+00:00
+rec_005_synthetic,Cheesy Cake,user_347,97,Medium,2025-02-10 12:35:30.174809+00:00
+rec_006_synthetic,Delicious Curry,user_974,114,Hard,2025-02-25 12:35:30.174809+00:00
+rec_007_synthetic,Creamy Cake,user_305,105,Easy,2025-10-05 12:35:30.174809+00:00
+rec_008_synthetic,Cheesy Curry,user_139,44,Medium,2025-10-19 12:35:30.174809+00:00
+rec_009_synthetic,Cheesy Stir Fry,user_622,13,Easy,2025-03-14 12:35:30.174809+00:00
+rec_010_synthetic,Homestyle Soup,user_420,96,Medium,2024-12-01 12:35:30.174809+00:00
+rec_011_synthetic,Vegan Cake,user_516,42,Easy,2025-11-15 12:35:30.174809+00:00
+rec_012_synthetic,Homestyle Cake,user_810,107,Easy,2025-10-24 12:35:30.174809+00:00
+rec_013_synthetic,Delicious Salad,user_902,24,Hard,2025-11-13 12:35:30.174809+00:00
+rec_014_synthetic,Vegan Salad,user_700,87,Medium,2025-04-09 12:35:30.174809+00:00
+rec_015_synthetic,Vegan Tacos,user_179,52,Easy,2025-05-14 12:35:30.174809+00:00
+rec_016_synthetic,Vegan Stir Fry,user_134,34,Hard,2025-08-16 12:35:30.174809+00:00
+rec_017_synthetic,Cheesy Cake,user_761,104,Hard,2025-06-28 12:35:30.174809+00:00
+rec_018_synthetic,Vegan Pasta,user_576,30,Medium,2024-12-01 12:35:30.174809+00:00
+rec_019_synthetic,Cheesy Curry,user_468,107,Medium,2025-01-21 12:35:30.175481+00:00
+rec_020_synthetic,Quick Salad,user_131,73,Easy,2025-09-07 12:35:30.175481+00:00

@@ -1,0 +1,66 @@
+recipe_id,step_number,instruction
+rec_001_saurav_chicken_gravy,1,Chop onion and tomato finely.
+rec_001_saurav_chicken_gravy,2,Heat oil in pan (high flame).
+rec_001_saurav_chicken_gravy,3,Sauté onions until golden brown.
+rec_001_saurav_chicken_gravy,4,"Add ginger garlic paste, mix 1 min."
+rec_001_saurav_chicken_gravy,5,"Add masalas, mix properly."
+rec_001_saurav_chicken_gravy,6,"Add chicken, cook 5 min to soak water."
+rec_001_saurav_chicken_gravy,7,"Add 250ml water, cover, cook on medium for 15 min."
+rec_001_saurav_chicken_gravy,8,Turn off flame and serve.
+rec_002_synthetic,1,Step 1: Prep
+rec_002_synthetic,2,Step 2: Cook
+rec_002_synthetic,3,Step 3: Serve
+rec_003_synthetic,1,Step 1: Prep
+rec_003_synthetic,2,Step 2: Cook
+rec_003_synthetic,3,Step 3: Serve
+rec_004_synthetic,1,Step 1: Prep
+rec_004_synthetic,2,Step 2: Cook
+rec_004_synthetic,3,Step 3: Serve
+rec_005_synthetic,1,Step 1: Prep
+rec_005_synthetic,2,Step 2: Cook
+rec_005_synthetic,3,Step 3: Serve
+rec_006_synthetic,1,Step 1: Prep
+rec_006_synthetic,2,Step 2: Cook
+rec_006_synthetic,3,Step 3: Serve
+rec_007_synthetic,1,Step 1: Prep
+rec_007_synthetic,2,Step 2: Cook
+rec_007_synthetic,3,Step 3: Serve
+rec_008_synthetic,1,Step 1: Prep
+rec_008_synthetic,2,Step 2: Cook
+rec_008_synthetic,3,Step 3: Serve
+rec_009_synthetic,1,Step 1: Prep
+rec_009_synthetic,2,Step 2: Cook
+rec_009_synthetic,3,Step 3: Serve
+rec_010_synthetic,1,Step 1: Prep
+rec_010_synthetic,2,Step 2: Cook
+rec_010_synthetic,3,Step 3: Serve
+rec_011_synthetic,1,Step 1: Prep
+rec_011_synthetic,2,Step 2: Cook
+rec_011_synthetic,3,Step 3: Serve
+rec_012_synthetic,1,Step 1: Prep
+rec_012_synthetic,2,Step 2: Cook
+rec_012_synthetic,3,Step 3: Serve
+rec_013_synthetic,1,Step 1: Prep
+rec_013_synthetic,2,Step 2: Cook
+rec_013_synthetic,3,Step 3: Serve
+rec_014_synthetic,1,Step 1: Prep
+rec_014_synthetic,2,Step 2: Cook
+rec_014_synthetic,3,Step 3: Serve
+rec_015_synthetic,1,Step 1: Prep
+rec_015_synthetic,2,Step 2: Cook
+rec_015_synthetic,3,Step 3: Serve
+rec_016_synthetic,1,Step 1: Prep
+rec_016_synthetic,2,Step 2: Cook
+rec_016_synthetic,3,Step 3: Serve
+rec_017_synthetic,1,Step 1: Prep
+rec_017_synthetic,2,Step 2: Cook
+rec_017_synthetic,3,Step 3: Serve
+rec_018_synthetic,1,Step 1: Prep
+rec_018_synthetic,2,Step 2: Cook
+rec_018_synthetic,3,Step 3: Serve
+rec_019_synthetic,1,Step 1: Prep
+rec_019_synthetic,2,Step 2: Cook
+rec_019_synthetic,3,Step 3: Serve
+rec_020_synthetic,1,Step 1: Prep
+rec_020_synthetic,2,Step 2: Cook
+rec_020_synthetic,3,Step 3: Serve

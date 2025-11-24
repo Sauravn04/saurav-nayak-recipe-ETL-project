@@ -1,0 +1,121 @@
+recipe_id,name,quantity,unit
+rec_001_saurav_chicken_gravy,Chicken (washed),300,grams
+rec_001_saurav_chicken_gravy,Onion,2,count
+rec_001_saurav_chicken_gravy,Tomato,1,count
+rec_001_saurav_chicken_gravy,Ginger Garlic Paste,1,tbsp
+rec_001_saurav_chicken_gravy,Salt,1,tbsp
+rec_001_saurav_chicken_gravy,Chicken Masala,1,tbsp
+rec_001_saurav_chicken_gravy,Turmeric Powder,0.5,tbsp
+rec_001_saurav_chicken_gravy,Cumin Powder,0.5,tbsp
+rec_001_saurav_chicken_gravy,Garam Masala,0.5,tbsp
+rec_001_saurav_chicken_gravy,Chilli Powder,0.5,tbsp
+rec_001_saurav_chicken_gravy,Water,250,ml
+rec_001_saurav_chicken_gravy,Oil,2,tbsp
+rec_002_synthetic,Tomato,280,pcs
+rec_002_synthetic,Flour,5,tbsp
+rec_002_synthetic,Garlic,399,grams
+rec_002_synthetic,Olive Oil,96,cup
+rec_002_synthetic,Garlic,375,grams
+rec_002_synthetic,Basil,266,tbsp
+rec_003_synthetic,Olive Oil,298,cup
+rec_003_synthetic,Flour,173,pcs
+rec_003_synthetic,Garlic,429,cup
+rec_003_synthetic,Rice,279,cup
+rec_004_synthetic,Rice,109,cup
+rec_004_synthetic,Salt,149,grams
+rec_004_synthetic,Tomato,38,tbsp
+rec_004_synthetic,Garlic,446,pcs
+rec_004_synthetic,Rice,366,pcs
+rec_005_synthetic,Chicken,463,grams
+rec_005_synthetic,Cheese,277,cup
+rec_005_synthetic,Olive Oil,398,tbsp
+rec_005_synthetic,Tomato,80,grams
+rec_005_synthetic,Tomato,252,grams
+rec_005_synthetic,Olive Oil,454,grams
+rec_005_synthetic,Pepper,32,tbsp
+rec_005_synthetic,Salt,336,tbsp
+rec_006_synthetic,Salt,36,tbsp
+rec_006_synthetic,Basil,414,tbsp
+rec_006_synthetic,Chicken,41,pcs
+rec_007_synthetic,Cheese,104,cup
+rec_007_synthetic,Basil,91,tbsp
+rec_007_synthetic,Basil,495,cup
+rec_007_synthetic,Basil,266,pcs
+rec_007_synthetic,Garlic,236,pcs
+rec_007_synthetic,Tomato,318,cup
+rec_008_synthetic,Cheese,185,cup
+rec_008_synthetic,Tomato,197,tbsp
+rec_008_synthetic,Salt,55,grams
+rec_008_synthetic,Garlic,24,tbsp
+rec_008_synthetic,Tomato,419,tbsp
+rec_008_synthetic,Cheese,240,tbsp
+rec_008_synthetic,Chicken,220,tbsp
+rec_009_synthetic,Garlic,160,tbsp
+rec_009_synthetic,Rice,414,grams
+rec_009_synthetic,Tomato,8,pcs
+rec_009_synthetic,Olive Oil,321,tbsp
+rec_009_synthetic,Rice,358,pcs
+rec_009_synthetic,Chicken,390,tbsp
+rec_009_synthetic,Rice,429,tbsp
+rec_009_synthetic,Chicken,17,pcs
+rec_010_synthetic,Flour,157,cup
+rec_010_synthetic,Cheese,281,cup
+rec_010_synthetic,Flour,80,tbsp
+rec_010_synthetic,Chicken,279,cup
+rec_011_synthetic,Rice,399,pcs
+rec_011_synthetic,Flour,58,tbsp
+rec_011_synthetic,Flour,128,tbsp
+rec_011_synthetic,Garlic,128,tbsp
+rec_012_synthetic,Rice,7,cup
+rec_012_synthetic,Flour,398,pcs
+rec_012_synthetic,Garlic,439,tbsp
+rec_013_synthetic,Salt,263,cup
+rec_013_synthetic,Cheese,480,grams
+rec_013_synthetic,Salt,261,grams
+rec_013_synthetic,Pepper,479,grams
+rec_013_synthetic,Tomato,294,grams
+rec_013_synthetic,Flour,320,tbsp
+rec_013_synthetic,Basil,127,pcs
+rec_014_synthetic,Garlic,289,tbsp
+rec_014_synthetic,Basil,177,cup
+rec_014_synthetic,Chicken,171,tbsp
+rec_014_synthetic,Basil,28,tbsp
+rec_015_synthetic,Olive Oil,478,pcs
+rec_015_synthetic,Rice,185,tbsp
+rec_015_synthetic,Rice,351,pcs
+rec_015_synthetic,Tomato,452,tbsp
+rec_015_synthetic,Garlic,191,pcs
+rec_015_synthetic,Cheese,25,grams
+rec_016_synthetic,Olive Oil,368,grams
+rec_016_synthetic,Flour,149,tbsp
+rec_016_synthetic,Pepper,152,grams
+rec_016_synthetic,Olive Oil,262,grams
+rec_016_synthetic,Rice,41,cup
+rec_016_synthetic,Garlic,248,tbsp
+rec_017_synthetic,Salt,101,tbsp
+rec_017_synthetic,Chicken,74,tbsp
+rec_017_synthetic,Chicken,260,pcs
+rec_017_synthetic,Salt,235,tbsp
+rec_017_synthetic,Cheese,309,tbsp
+rec_017_synthetic,Salt,358,grams
+rec_018_synthetic,Olive Oil,29,cup
+rec_018_synthetic,Rice,118,pcs
+rec_018_synthetic,Tomato,479,grams
+rec_018_synthetic,Pepper,348,tbsp
+rec_018_synthetic,Salt,283,pcs
+rec_018_synthetic,Garlic,309,pcs
+rec_018_synthetic,Chicken,466,grams
+rec_019_synthetic,Rice,231,tbsp
+rec_019_synthetic,Tomato,87,grams
+rec_019_synthetic,Chicken,47,tbsp
+rec_019_synthetic,Basil,429,grams
+rec_019_synthetic,Tomato,378,pcs
+rec_019_synthetic,Cheese,425,grams
+rec_019_synthetic,Cheese,411,tbsp
+rec_019_synthetic,Basil,389,cup
+rec_020_synthetic,Salt,498,cup
+rec_020_synthetic,Pepper,68,tbsp
+rec_020_synthetic,Rice,59,cup
+rec_020_synthetic,Basil,387,cup
+rec_020_synthetic,Basil,140,cup
+rec_020_synthetic,Pepper,451,grams

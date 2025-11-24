@@ -1,0 +1,84 @@
+{
+    "recipe_id": "rec_001_saurav_chicken_gravy",
+    "title": "Chicken Gravy for 2 People",
+    "author_id": "user_saurav_001",
+    "prep_time_minutes": 35,
+    "servings": 2,
+    "difficulty": "Medium",
+    "created_at": "2025-11-20T10:00:00Z",
+    "ingredients": [
+        {
+            "name": "Chicken (washed)",
+            "quantity": 300,
+            "unit": "grams"
+        },
+        {
+            "name": "Onion",
+            "quantity": 2,
+            "unit": "count"
+        },
+        {
+            "name": "Tomato",
+            "quantity": 1,
+            "unit": "count"
+        },
+        {
+            "name": "Ginger Garlic Paste",
+            "quantity": 1,
+            "unit": "tbsp"
+        },
+        {
+            "name": "Salt",
+            "quantity": 1,
+            "unit": "tbsp"
+        },
+        {
+            "name": "Chicken Masala",
+            "quantity": 1,
+            "unit": "tbsp"
+        },
+        {
+            "name": "Turmeric Powder",
+            "quantity": 0.5,
+            "unit": "tbsp"
+        },
+        {
+            "name": "Cumin Powder",
+            "quantity": 0.5,
+            "unit": "tbsp"
+        },
+        {
+            "name": "Garam Masala",
+            "quantity": 0.5,
+            "unit": "tbsp"
+        },
+        {
+            "name": "Chilli Powder",
+            "quantity": 0.5,
+            "unit": "tbsp"
+        },
+        {
+            "name": "Water",
+            "quantity": 250,
+            "unit": "ml"
+        },
+        {
+            "name": "Oil",
+            "quantity": 2,
+            "unit": "tbsp"
+        }
+    ],
+    "steps": [
+        "Take the onion and tomato; chop them finely and keep aside.",
+        "Place a pan on the gas stove and turn on the flame (high).",
+        "Add oil to the pan and heat it for 2 min.",
+        "Add chopped onion in the pan and stir till golden brown.",
+        "Add ginger garlic paste in the pan and mix for 1 min.",
+        "Add all the masalas (spices) in the pan and mix properly.",
+        "Add the washed chicken to the mixture and cook for 5 min until excess water is soaked.",
+        "Add 250ml water, cover the pan with lid, and turn the flame to medium.",
+        "Cook the chicken for 15 min until cooked properly, stirring in between.",
+        "Turn off the flame.",
+        "Chicken gravy is ready to serve with rice or roti."
+    ]
+}
