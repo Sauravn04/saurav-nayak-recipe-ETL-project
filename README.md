@@ -7,19 +7,31 @@ Recipe Analytics Data Pipeline
 **E-mail:** nayaksaurav99@gmail.com <br>
 **Project:** Firebase-Based Recipe Analytics Pipeline
 ---
---------------------
 1\. Project Overview
 --------------------
-This project implements an end-to-end Data Engineering pipeline designed to ingest, transform, and analyze recipe data. The system leverages **Firebase Firestore** as a flexible, transactional NoSQL source and **Google BigQuery** as a high-performance analytical data warehouse.
-The core objective is to create a robust system capable of analyzing user engagement metrics (views, likes) and recipe complexity factors (ingredients, steps) to derive actionable business insights. By bridging the gap between operational application data and analytical reporting, this pipeline enables data-driven decision-making for content strategy and platform optimization.
+This project implements an end-to-end **Data Engineering pipeline** designed to ingest, transform, and analyze recipe data. It uses **Firebase Firestore** as a transactional NoSQL source and **Google BigQuery** as a scalable analytical warehouse. The goal is to build a reliable, automated system capable of generating insights into **user engagement** (views, likes) and **recipe complexity** (ingredients, steps), enabling data-driven decisions for content strategy and platform optimization.
 
-**Key Features:**
--   **Source:** Firebase Firestore (Document-Oriented NoSQL).
--   **Extraction & Transformation:** A serverless Python ETL pipeline that normalizes semi-structured JSON data into a relational schema.
--   **Storage:** Google Cloud Storage serves as a Data Lake for raw backups, while BigQuery acts as the Data Warehouse for structured analytics.
--   **Automation:** The pipeline is event-driven, automatically updating analytical tables whenever new data is uploaded.
+By bridging the gap between operational application data and analytical reporting, this pipeline provides a structured and maintainable foundation for large-scale recipe analytics.
 
-__ETL Flow:__
+* * * * *
+
+### **Key Features**
+-   **Firestore as the Source**\
+    A flexible, document-oriented NoSQL database used to store users, recipes, and interactions.
+
+-   **Serverless ETL Pipeline**\
+    A Python-based extraction and transformation layer that converts semi-structured Firestore JSON into a clean relational schema.
+
+-   **Two-Tier Storage Architecture**
+
+    -   **Google Cloud Storage** → Serves as the Data Lake for raw CSV backups.
+
+    -   **BigQuery** → Acts as the Data Warehouse for structured analytics and BI workloads.
+
+-   **Event-Driven Automation**\
+    Cloud Functions automatically detect new data uploads and refresh BigQuery tables, ensuring the warehouse always stays up to date.
+
+**__ETL Flow:__**
 ![alt text](pictures/etl_flow.png)
 
 
