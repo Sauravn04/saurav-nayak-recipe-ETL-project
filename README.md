@@ -117,117 +117,203 @@ pip install firebase-admin faker google-cloud-bigquery google-cloud-storage
 ---
 4\. Implementation Guide (How to Run)
 -------------------------------------
-This section shows details how to execute the full data pipeline, from local setup to cloud deployment.
 
-#### **Step 0: Local Environment Setup**
-It is recommended to use a virtual environment to manage dependencies.
+This section explains how to execute the full pipeline --- from local setup to cloud deployment and validation.
 
-Bash
+
+
+### **Step 0: Local Environment Setup**
+
+Use a virtual environment to manage dependencies.
 ```
 # 1. Create a virtual environment
+
 python -m venv .venv
 
 # 2. Activate the environment
-# Windows:
+
 .venv\Scripts\activate
-# Mac/Linux:
-source .venv/bin/activate
 
 # 3. Install dependencies
+
 pip install -r requirements.txt
 
 ```
-#### **Step 1: Seed the Firestore Database**
-This script populates your Firestore database with the initial "Chicken Gravy" recipe and generates synthetic data for testing.
 
-Bash
+### **Step 1: Seed the Firestore Database**
 
-```
-python src/insert_recipe.py
+This script populates Firestore with the initial "Chicken Gravy" recipe and synthetic test data.
 
-```
+`python src/insert_recipe.py`
 
--   **Action:** Connects to Firestore, creates collections (`users`, `recipes`, `interactions`), and inserts documents.
+**Action:**
 
--   **Verification:** Check your Firestore Console to confirm data creation.
+-   Connects to Firestore
 
-#### **Step 2: Trigger the Cloud ETL Pipeline**
-The core ETL process is hosted as a Google Cloud Function. You can trigger it manually via its HTTP endpoint or set up a scheduler.
+-   Creates `users`, `recipes`, and `interactions` collections
 
--   **Manual Trigger:** Open the following URL in your browser or use `curl`:
+-   Inserts sample documents
 
-    Bash
+**Verification:**\
+Open the Firebase Console → Firestore → confirm that the new documents appear.
 
-    ```
-    curl https://us-central1-fir-f8d56.cloudfunctions.net/recipe-etl-v1
+* * * * *
 
-    ```
+### **Step 2: Trigger the Cloud ETL Pipeline**
 
--   **Action:**
-    1.  **Extracts** data from Firestore.
+The main ETL logic runs in a Google Cloud Function. Trigger it manually using its HTTP endpoint:
 
-    2.  **Transforms** nested JSON into normalized CSV format in-memory.
+`curl https://us-central1-fir-f8d56.cloudfunctions.net/recipe-etl-v1`
 
-    3.  **Loads** CSV files to your Google Cloud Storage bucket (`gs://saurav_recipe_backup/backups/`).
+**Action:**
 
--   **Verification:** Check your GCS bucket for updated CSV files with recent timestamps.
+-   Extracts raw documents from Firestore
 
-#### **Step 3: Automated Warehouse Loading (Event-Driven)**
-This step requires **no manual action**.
+-   Transforms nested JSON into normalized CSVs (in-memory)
 
--   **Mechanism:** A separate Cloud Function (`bq-auto-loader`) is triggered automatically whenever a new file is uploaded to your GCS bucket.
+-   Uploads CSVs to your Cloud Storage bucket:\
+    `gs://saurav_recipe_backup/backups/`
 
--   **Action:** It detects the new CSVs and loads them directly into the corresponding **BigQuery** tables in the `recipe_analytics` dataset.
+**Verification:**\
+Check your GCS bucket → You should see newly generated CSV files with fresh timestamps.
 
--   **Verification:** Query the tables in BigQuery to see the latest data.
+* * * * *
 
-#### **Step 4: Data Quality Validation**
-Run the local validation script to check the integrity of the generated CSV files (you can download them from the bucket first if needed).
+### **Step 3: Automated Warehouse Loading (Event-Driven)**
 
-Bash
-```
-python src/data_validation.py
+No manual action is required.
 
-```
+**Mechanism:**\
+A second Cloud Function (`bq-auto-loader`) listens for new files in the GCS bucket.
 
--   **Action:** Checks for missing fields, negative values, and orphaned records.
+**Action:**
 
--   **Output:** Prints a summary to the console and generates `validation_report.csv`.
+-   Detects uploaded CSV files
+
+-   Loads them into the corresponding BigQuery tables in the `recipe_analytics` dataset
+
+**Verification:**\
+Open BigQuery → Run a query on tables like `recipe`, `ingredients`, `steps` to confirm updated data.
+
+* * * * *
+
+### **Step 4: Data Quality Validation**
+
+Run the validator script locally (download the CSV files from the bucket if needed):
+
+`python src/data_validation.py`
+
+**Action:**
+
+-   Checks for missing required fields
+
+-   Detects invalid or negative values
+
+-   Identifies orphaned records across tables
+
+**Output:**
+
+-   A console summary of detected issues
+
+-   A generated `validation_report.csv` file
 ---
 5\. ETL Process Overview
 ------------------------
 
-The ETL (Extract, Transform, Load) pipeline is implemented in Python (`etl_pipeline.py` locally or `main.py` in Cloud Functions) to bridge the gap between the document-oriented source (Firestore) and the structured analytics destination (BigQuery).
+The ETL (Extract, Transform, Load) pipeline is implemented in Python (`etl_pipeline.py` locally or `main.py` in Cloud Functions). It bridges the gap between the **document-oriented Firestore source** and the **structured, analytics-ready BigQuery warehouse**.
 
-**1\. Extraction (Extract)**
--   **Source:** Firebase Firestore (Database: `recipe`).
+* * * * *
 
--   **Method:** Uses the `firebase-admin` SDK (or `google-cloud-firestore` in Cloud Functions) to stream documents from three primary collections: `users`, `recipes`, and `interactions`.
+### **1\. Extraction (Extract)**
 
--   **Logic:** Streaming (`.stream()`) is used instead of fetching all data at once to ensure memory efficiency and scalability for large datasets.
+**Source:** Firebase Firestore (`recipe` database)\
+**Collections:** `users`, `recipes`, `interactions`
 
-**2\. Transformation (Transform)** The raw JSON data from Firestore is semi-structured (nested arrays). The pipeline normalizes this into a **Relational Star Schema** format suitable for SQL analysis.
+**Method:**\
+The pipeline uses the `firebase-admin` SDK (or `google-cloud-firestore` inside Cloud Functions) to **stream documents** using `.stream()`.
 
--   **Normalization of Recipes:**
+**Why streaming?**
 
-    -   The `recipes` document contains nested arrays for `ingredients` and `steps`.
+-   Prevents loading all documents at once
 
-    -   **Explosion:** The pipeline iterates through these arrays to create separate rows for the `ingredients.csv` and `steps.csv` files.
+-   Memory-efficient
 
-    -   **Indexing:** A `step_number` is generated for each cooking step to preserve the correct order in the relational format.
+-   Scales well for large datasets
 
--   **Data Cleaning:**
-    -   Timestamps are preserved in ISO format.
+* * * * *
 
-    -   Missing optional fields (like `rating` in interactions) are handled gracefully to prevent schema errors.
+### **2\. Transformation (Transform)**
 
--   **Schema Mapping:**
-    -   JSON fields are mapped to specific CSV columns (e.g., `prep_time_minutes`, `difficulty`).
+Firestore returns raw **semi-structured JSON**, often containing nested arrays. The pipeline converts this into a **clean relational star-schema** suitable for SQL analytics in BigQuery.
 
-**3\. Loading (Load)**
--   **Stage 1 (Data Lake):** The transformed data is written to in-memory buffers (`io.StringIO`) and uploaded as 5 distinct CSV files (`users.csv`, `recipe.csv`, `ingredients.csv`, `steps.csv`, `interactions.csv`) to the **Google Cloud Storage** bucket (`gs://saurav_recipe_backup/backups/`). This serves as a persistent raw data backup.
+#### **Normalization of Recipes**
 
--   **Stage 2 (Data Warehouse):** An event-driven Cloud Function (`bq-auto-loader`) listens for these file uploads. Upon detection, it initiates a **BigQuery Load Job** with `WRITE_TRUNCATE` mode, automatically refreshing the `recipe_analytics` tables with the latest data ready for analysis.
+-   Each recipe document contains nested arrays for `ingredients` and `steps`.
+
+-   The pipeline **explodes** these arrays into separate rows for:
+
+    -   `ingredients.csv`
+
+    -   `steps.csv`
+
+-   A `step_number` is generated to preserve the correct order of instructions.
+
+#### **Data Cleaning**
+
+-   Firestore timestamps are converted to ISO format.
+
+-   Optional fields (e.g., missing ratings) are safely handled to avoid schema issues.
+
+#### **Schema Mapping**
+
+All JSON fields are mapped to defined CSV columns such as:
+
+-   `prep_time_minutes`
+
+-   `difficulty`
+
+-   `cuisine`
+
+-   `interaction_type`, etc.
+
+* * * * *
+
+### **3\. Loading (Load)**
+
+#### **Stage 1 -- Data Lake Storage**
+
+The transformed data is written to memory buffers (`io.StringIO`) and exported as **5 CSV files**:
+
+-   `users.csv`
+
+-   `recipe.csv`
+
+-   `ingredients.csv`
+
+-   `steps.csv`
+
+-   `interactions.csv`
+
+These files are uploaded to:
+
+`gs://saurav_recipe_backup/backups/`
+
+This acts as a **persistent raw data backup layer**.
+
+* * * * *
+
+#### **Stage 2 -- Data Warehouse Load**
+
+A Cloud Function (`bq-auto-loader`) is triggered when new CSV files land in the bucket.\
+It executes a **BigQuery Load Job** with:
+
+-   **WRITE_TRUNCATE** mode → fully refreshes tables
+
+-   Automatic schema detection or predefined schema
+
+-   Loads data into the `recipe_analytics` dataset
+
+This ensures BigQuery always contains the **latest structured data** ready for analysis.
 
 6\. Analytics & Insights Summary
 --------------------------------
