@@ -70,7 +70,7 @@ To successfully deploy and run this pipeline, the following prerequisites must b
 
 -   **Google Cloud Platform (GCP):** An active GCP project ID with billing enabled.
 
-    -   **APIs Enabled:** Cloud Functions API, Cloud Build API, BigQuery API, Cloud Storage API, Artifact Registry API.
+-   **APIs Enabled:** Cloud Functions API, Cloud Build API, BigQuery API, Cloud Storage API, Artifact Registry API.
 
 -   **Firebase:** A Firebase project linked to the GCP project with Firestore enabled.
 
@@ -87,7 +87,7 @@ pip install firebase-admin faker google-cloud-bigquery google-cloud-storage pand
 ---
 4\. Implementation Guide (How to Run)
 -------------------------------------
-This section details how to execute the full data pipeline, from local setup to cloud deployment.
+This section shows details how to execute the full data pipeline, from local setup to cloud deployment.
 
 #### **Step 0: Local Environment Setup**
 
@@ -176,7 +176,7 @@ python src/data_validation.py
 5\. ETL Process Overview
 ------------------------
 
-he ETL (Extract, Transform, Load) pipeline is implemented in Python (`etl_pipeline.py` locally or `main.py` in Cloud Functions) to bridge the gap between the document-oriented source (Firestore) and the structured analytics destination (BigQuery).
+The ETL (Extract, Transform, Load) pipeline is implemented in Python (`etl_pipeline.py` locally or `main.py` in Cloud Functions) to bridge the gap between the document-oriented source (Firestore) and the structured analytics destination (BigQuery).
 
 **1\. Extraction (Extract)**
 
