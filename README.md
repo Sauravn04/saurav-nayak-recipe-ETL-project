@@ -11,21 +11,57 @@ Recipe Analytics Data Pipeline
 1\. Project Overview
 --------------------
 This project implements an end-to-end Data Engineering pipeline designed to ingest, transform, and analyze recipe data. The system leverages **Firebase Firestore** as a flexible, transactional NoSQL source and **Google BigQuery** as a high-performance analytical data warehouse.
-
 The core objective is to create a robust system capable of analyzing user engagement metrics (views, likes) and recipe complexity factors (ingredients, steps) to derive actionable business insights. By bridging the gap between operational application data and analytical reporting, this pipeline enables data-driven decision-making for content strategy and platform optimization.
 
 **Key Features:**
-
 -   **Source:** Firebase Firestore (Document-Oriented NoSQL).
-
 -   **Extraction & Transformation:** A serverless Python ETL pipeline that normalizes semi-structured JSON data into a relational schema.
-
 -   **Storage:** Google Cloud Storage serves as a Data Lake for raw backups, while BigQuery acts as the Data Warehouse for structured analytics.
-
 -   **Automation:** The pipeline is event-driven, automatically updating analytical tables whenever new data is uploaded.
 
 __ETL Flow:__
 ![alt text](pictures/etl_flow.png)
+
+
+**Project Structure**
+=======================================
+
+```
+SAURAV-NAYAK-RECIPE-ETL-PIPELINE/
+│
+├── bigquery_loader_function/
+│   ├── main.py
+│   └── requirements.txt
+│
+├── cloud_function/
+│   ├── main.py
+│   └── requirements.txt
+│
+├── output/
+│   ├── ingredients.csv
+│   ├── interactions.csv
+│   ├── recipe.csv
+│   ├── steps.csv
+│   ├── users.csv
+│
+├── pictures/
+│
+├── schema/
+│   ├── recipe.json
+│   ├── user_interaction.json
+│   └── user.json
+│
+├── src/
+│   ├── data_validation.py
+│   ├── etl_pipeline.py
+│   └── insert_recipe.py
+│
+├── .gitignore
+├── Analytics Summary Report.pdf
+├── README.md
+├── requirements.txt
+└── validation_report.csv
+```
 
 ---
 2\. Data Model & Schema
@@ -34,9 +70,7 @@ __ETL Flow:__
 The project uses a hybrid data model to handle both semi-structured source data and structured analytical data.
 
 ### A. NoSQL Source Schema (Firestore)
-
 The source data is stored in 3 collections in the default database:
-
 -   **`users`**: Stores user profiles.
 
 -   **`recipes`**: Stores recipe details. Uses **nested arrays** for `ingredients` and `steps`.
@@ -44,9 +78,7 @@ The source data is stored in 3 collections in the default database:
 -   **`interactions`**: A transactional log linking Users to Recipes (Views, Likes, Cook Attempts).
 
 ### B. Normalized Relational Schema (BigQuery)
-
 To facilitate SQL analysis, the data is normalized into 5 tables (Star Schema approach):
-
 1.  **`users`**: Dimension table (`user_id`, `username`, `email`).
 
 2.  **`recipes`**: Fact/Dimension table (`recipe_id`, `prep_time`, `difficulty`).
@@ -65,7 +97,6 @@ ER Diagram:
 To successfully deploy and run this pipeline, the following prerequisites must be met.
 
 **System Requirements:**
-
 -   **Python:** Version 3.8 or higher.
 
 -   **Google Cloud Platform (GCP):** An active GCP project ID with billing enabled.
@@ -79,9 +110,8 @@ To successfully deploy and run this pipeline, the following prerequisites must b
 **Dependencies:** The project relies on several Python libraries. Install them using the provided `requirements.txt` file:
 
 Bash
-
 ```
-pip install firebase-admin faker google-cloud-bigquery google-cloud-storage pandas fun
+pip install firebase-admin faker google-cloud-bigquery google-cloud-storage 
 ```
 
 ---
@@ -90,11 +120,9 @@ pip install firebase-admin faker google-cloud-bigquery google-cloud-storage pand
 This section shows details how to execute the full data pipeline, from local setup to cloud deployment.
 
 #### **Step 0: Local Environment Setup**
-
 It is recommended to use a virtual environment to manage dependencies.
 
 Bash
-
 ```
 # 1. Create a virtual environment
 python -m venv .venv
@@ -109,9 +137,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 ```
-
 #### **Step 1: Seed the Firestore Database**
-
 This script populates your Firestore database with the initial "Chicken Gravy" recipe and generates synthetic data for testing.
 
 Bash
@@ -126,7 +152,6 @@ python src/insert_recipe.py
 -   **Verification:** Check your Firestore Console to confirm data creation.
 
 #### **Step 2: Trigger the Cloud ETL Pipeline**
-
 The core ETL process is hosted as a Google Cloud Function. You can trigger it manually via its HTTP endpoint or set up a scheduler.
 
 -   **Manual Trigger:** Open the following URL in your browser or use `curl`:
@@ -139,7 +164,6 @@ The core ETL process is hosted as a Google Cloud Function. You can trigger it ma
     ```
 
 -   **Action:**
-
     1.  **Extracts** data from Firestore.
 
     2.  **Transforms** nested JSON into normalized CSV format in-memory.
@@ -149,7 +173,6 @@ The core ETL process is hosted as a Google Cloud Function. You can trigger it ma
 -   **Verification:** Check your GCS bucket for updated CSV files with recent timestamps.
 
 #### **Step 3: Automated Warehouse Loading (Event-Driven)**
-
 This step requires **no manual action**.
 
 -   **Mechanism:** A separate Cloud Function (`bq-auto-loader`) is triggered automatically whenever a new file is uploaded to your GCS bucket.
@@ -159,11 +182,9 @@ This step requires **no manual action**.
 -   **Verification:** Query the tables in BigQuery to see the latest data.
 
 #### **Step 4: Data Quality Validation**
-
 Run the local validation script to check the integrity of the generated CSV files (you can download them from the bucket first if needed).
 
 Bash
-
 ```
 python src/data_validation.py
 
@@ -179,7 +200,6 @@ python src/data_validation.py
 The ETL (Extract, Transform, Load) pipeline is implemented in Python (`etl_pipeline.py` locally or `main.py` in Cloud Functions) to bridge the gap between the document-oriented source (Firestore) and the structured analytics destination (BigQuery).
 
 **1\. Extraction (Extract)**
-
 -   **Source:** Firebase Firestore (Database: `recipe`).
 
 -   **Method:** Uses the `firebase-admin` SDK (or `google-cloud-firestore` in Cloud Functions) to stream documents from three primary collections: `users`, `recipes`, and `interactions`.
@@ -197,24 +217,20 @@ The ETL (Extract, Transform, Load) pipeline is implemented in Python (`etl_pipel
     -   **Indexing:** A `step_number` is generated for each cooking step to preserve the correct order in the relational format.
 
 -   **Data Cleaning:**
-
     -   Timestamps are preserved in ISO format.
 
     -   Missing optional fields (like `rating` in interactions) are handled gracefully to prevent schema errors.
 
 -   **Schema Mapping:**
-
     -   JSON fields are mapped to specific CSV columns (e.g., `prep_time_minutes`, `difficulty`).
 
 **3\. Loading (Load)**
-
 -   **Stage 1 (Data Lake):** The transformed data is written to in-memory buffers (`io.StringIO`) and uploaded as 5 distinct CSV files (`users.csv`, `recipe.csv`, `ingredients.csv`, `steps.csv`, `interactions.csv`) to the **Google Cloud Storage** bucket (`gs://saurav_recipe_backup/backups/`). This serves as a persistent raw data backup.
 
 -   **Stage 2 (Data Warehouse):** An event-driven Cloud Function (`bq-auto-loader`) listens for these file uploads. Upon detection, it initiates a **BigQuery Load Job** with `WRITE_TRUNCATE` mode, automatically refreshing the `recipe_analytics` tables with the latest data ready for analysis.
 
 6\. Analytics & Insights Summary
 --------------------------------
-
 The following insights were derived using SQL queries on the BigQuery dataset `recipe_analytics`.
 
 ### 1\. Top 5 Most Common Ingredients
@@ -406,7 +422,6 @@ Output
 
 7\. Known Constraints & Limitations
 -----------------------------------
-
 -   **Synthetic Data Quality:** The primary seed recipe ("Chicken Gravy") is real, but the remaining 19 recipes are machine-generated for testing volume. As a result, ingredient combinations in the synthetic set may not be culinarily accurate (e.g., "Ice Cream with Garlic").
 
 -   **Batch Processing Latency:** The current pipeline operates on a scheduled batch model. Real-time user interactions are not reflected in the analytics warehouse instantly; they appear only after the next scheduled Cloud Function execution.
